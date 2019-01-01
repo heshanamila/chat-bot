@@ -1,19 +1,17 @@
-from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
-import os
+import random
 
-bot = ChatBot('Bot')
-bot.set_trainer(ListTrainer)
-
-for files in os.listdir('C:/Users/user\Desktop/chatterbot-corpus-master/chatterbot_corpus/data/english/'):
-	data = open('C:/Users/user\Desktop/chatterbot-corpus-master/chatterbot_corpus/data/english/' + files ,'r').readlines()
-        bot.train(data)
-
+Greeting_words = ("hello","hi","ssup","greeting")
+Greeting_response = ["hey","Good morning","Wssup"]
+def check_for_greeting(sentence):
+    for word in sentence.split(' '):
+        if word.lower() in Greeting_words:
+            return random.choice(Greeting_response)
+        else:
+            return "I dont know what you are talking about"
 while True:
-  	message = input('You:')
-	if message.strip() !='Bye':
-		reply = bot.get_response(message)
-		print('ChatBot :',reply)
-	if message.strip() == 'Bye':
-		print('ChatBot : Bye')
-		break 	
+    sentence = input("You: ")
+    response = check_for_greeting(sentence)
+    print("your Bot: "+response)
+
+    if 'bye' in sentence:
+        break
